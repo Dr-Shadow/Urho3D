@@ -69,6 +69,7 @@ elseif (IOS)
         src/thread/pthread/*.c src/timer/unix/*.c src/video/uikit/*.m src/video/uikit/*.c src/haptic/dummy/*.c
         src/filesystem/cocoa/*.m
     )
+    set_property (SOURCE src/video/uikit/SDL_uikitopenglview.m APPEND_STRING PROPERTY COMPILE_FLAGS -fobjc-arc)
 elseif (APPLE)
     file (GLOB SYS_C_FILES
         src/audio/coreaudio/*.c src/file/cocoa/*.m src/haptic/darwin/*.c src/joystick/darwin/*.c src/loadso/dlopen/*.c
@@ -78,6 +79,7 @@ elseif (ANDROID)
     file (GLOB SYS_C_FILES
         src/audio/android/*.c src/core/android/*.c src/joystick/android/*.c src/loadso/dlopen/*.c src/power/android/*.c
         src/thread/pthread/*.c src/timer/unix/*.c src/video/android/*.c src/haptic/dummy/*.c src/filesystem/dummy/*.c
+        src/filesystem/android/*.c
     )
 else ()
     # On Linux, make sure development libraries exist, and use their include file directories

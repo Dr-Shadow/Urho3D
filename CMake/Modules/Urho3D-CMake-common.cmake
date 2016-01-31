@@ -541,7 +541,7 @@ if (APPLE)
         else ()
             set (CMAKE_OSX_ARCHITECTURES $(ARCHS_STANDARD_32_BIT))
         endif ()
-        set (LINKER_FLAGS "-framework AudioToolbox -framework CoreAudio -framework CoreGraphics -framework Foundation -framework OpenGLES -framework QuartzCore -framework UIKit")  # Need to stringify to keep it as a string instead of as a list
+        set (LINKER_FLAGS "-framework AudioToolbox -framework CoreAudio -framework CoreGraphics -framework CoreMotion -framework Foundation -framework GameController -framework OpenGLES -framework QuartzCore -framework UIKit")  # Need to stringify to keep it as a string instead of as a list
     else ()
         if (XCODE)
             # OSX-specific setup
@@ -555,7 +555,7 @@ if (APPLE)
                 set (CMAKE_OSX_ARCHITECTURES $(ARCHS_STANDARD_32_BIT))
             endif ()
         endif ()
-        set (LINKER_FLAGS "-framework AudioUnit -framework Carbon -framework Cocoa -framework CoreAudio -framework ForceFeedback -framework IOKit -framework OpenGL -framework CoreServices")
+        set (LINKER_FLAGS "-framework AudioUnit -framework Carbon -framework Cocoa -framework CoreAudio -framework CoreServices -framework CoreVideo -framework ForceFeedback -framework IOKit -framework OpenGL")
     endif ()
     set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${LINKER_FLAGS}")
     set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${LINKER_FLAGS}")

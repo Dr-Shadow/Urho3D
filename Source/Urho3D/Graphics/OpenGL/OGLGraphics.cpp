@@ -458,6 +458,9 @@ bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, 
             flags |= SDL_WINDOW_RESIZABLE;
         if (borderless)
             flags |= SDL_WINDOW_BORDERLESS;
+#ifdef __APPLE__
+            flags |= SDL_WINDOW_ALLOW_HIGHDPI;
+#endif
 
         SDL_SetHint(SDL_HINT_ORIENTATIONS, orientations_.CString());
 
@@ -498,7 +501,7 @@ bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, 
         if (maximize)
         {
             Maximize();
-            SDL_GetWindowSize(impl_->window_, &width, &height);
+            SDL_GL_GetDrawableSize(impl_->window_, &width, &height);
         }
 
         // Create/restore context and GPU objects and set initial renderstate
@@ -524,7 +527,7 @@ bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, 
     tripleBuffer_ = tripleBuffer;
     multiSample_ = multiSample;
 
-    SDL_GetWindowSize(impl_->window_, &width_, &height_);
+    SDL_GL_GetDrawableSize(impl_->window_, &width_, &height_);
     if (!fullscreen)
         SDL_GetWindowPosition(impl_->window_, &position_.x_, &position_.y_);
 
@@ -637,7 +640,7 @@ bool Graphics::BeginFrame()
     {
         int width, height;
 
-        SDL_GetWindowSize(impl_->window_, &width, &height);
+        SDL_GL_GetDrawableSize(impl_->window_, &width, &height);
         if (width != width_ || height != height_)
             SetMode(width, height);
     }
@@ -2144,7 +2147,7 @@ void Graphics::WindowResized()
 
     int newWidth, newHeight;
 
-    SDL_GetWindowSize(impl_->window_, &newWidth, &newHeight);
+    SDL_GL_GetDrawableSize(impl_->window_, &newWidth, &newHeight);
     if (newWidth == width_ && newHeight == height_)
         return;
 
